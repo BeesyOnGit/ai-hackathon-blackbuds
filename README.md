@@ -1,4 +1,4 @@
-# AI Hackathon Blackbuds
+# AI Hackathon - Blackbuds
 
 ## Overview
 /
