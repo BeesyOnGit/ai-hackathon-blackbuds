@@ -29,9 +29,8 @@ ai_hackathon_blackbuds/
 │   │── main.py                
 │   │── runners/               # Logic for executing agents
 │   │   │── __init__.py
-│   │── models/
-│   │   │── __init__.py
-│   │   │── agent.py           
+│   │── models/                # Custom models
+│   │   │── __init__.py 
 │   │── utils/                 # Common utilities
 │   │   │── __init__.py
 │   │── tools/                 # Custom agent tools
