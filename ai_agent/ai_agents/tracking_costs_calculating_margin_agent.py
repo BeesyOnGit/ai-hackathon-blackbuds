@@ -1,6 +1,6 @@
 from agents import Agent
-from tools.profit_margin import calculate_profit_marginn
-from models.agent_output_model import SimplifiedAnalysisReport, FinalOutput
+from ai_agent.tools.profit_margin import calculate_profit_marginn
+from ai_agent.models.agent_output_model import SimplifiedAnalysisReport, FinalOutput
 
 agent = Agent(
     name="Margin Analysis Agent",
