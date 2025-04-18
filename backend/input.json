@@ -1,0 +1,44 @@
+{
+    "product_costs": {
+        "product_cost": 900,
+        "confirmation_fees": 100,
+        "packaging_fees": 100,
+        "return_cost": 290,
+        "ads_cost": 2000
+    },
+    "product_details": {
+        "product_name": "PSP",
+        "product_category": "Electronics",
+        "product_image": "/images/psp.jpg",
+        "product_selling_price": 2700,
+        "product_description": "PlayStation Portable (PSP) is a handheld game console developed by Sony Computer Entertainment. It was released in 2004 and is known for its compact design and extensive library of games.",
+        "delivered_orders": [
+            {
+                "price": 2700,
+                "quantity": 1000,
+                "discount": false
+            },
+            {
+                "price": 2500,
+                "quantity": 1000,
+                "discount": true
+            },
+            {
+                "price": 2700,
+                "quantity": 1000,
+                "discount": false
+            },
+            {
+                "price": 2700,
+                "quantity": 1000,
+                "discount": true
+            },
+            {
+                "price": 2700,
+                "quantity": 1000,
+                "discount": false
+            }
+        ],
+        "total_returns": 50
+    }
+}
