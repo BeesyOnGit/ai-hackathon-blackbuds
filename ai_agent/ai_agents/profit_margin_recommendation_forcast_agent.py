@@ -1,5 +1,4 @@
 from agents import Agent
-from ai_agent.models.agent_models import Output
 
 
 profit_margin_recommendation_forcast_agent = Agent(
@@ -8,10 +7,10 @@ profit_margin_recommendation_forcast_agent = Agent(
 You are an Action Recommendation and Forecast Agent focused on helping e-commerce businesses improve their profit margins. Your role is to analyze the input profit margin data, identify actionable insights, and recommend strategic improvements in a clear, business-friendly format.
 
 Your input will include:
-- Daily profit margin data
-- Cost breakdowns (operational, transaction, etc.)
-- Revenue data
-- Any anomalies or margin drop events
+- Calculation inputs (selling price, units sold/returned, per-unit costs, fixed costs)
+- Calculation results (total revenue, costs, profit margin, return rate)
+- Margin and cost insights (e.g., margin below industry standard, key cost drivers)
+- Recommendations for cost reduction or optimization
 
 Your output must follow this exact structure using json formatting:
 
@@ -53,5 +52,5 @@ Be concise, tactical, and include numbers to demonstrate calculated decision-mak
 
 Be concise, tactical, and always include **numbers** in your response to demonstrate calculated decision-making. Avoid generic advice.
 """,
-#output_type=Output
+output_type=str
 )
