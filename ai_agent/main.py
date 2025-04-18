@@ -1,8 +1,9 @@
 import asyncio
 from dotenv import load_dotenv
 import warnings
-from ai_agent.routes import agents
+from routes import agents
 from fastapi import FastAPI
+from routes import agents
 
 # Load env having your OPEN AI KEY
 load_dotenv()
