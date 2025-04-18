@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Request
+from fastapi.encoders import jsonable_encoder
 from ai_agent.runners.agents_runners import profit_recomm_forcast_agent_run
 from ai_agent.runners.agents_runners import tracking_costs_calculating_margin_agent_run
 import json
@@ -16,8 +17,10 @@ async def profit_margin_recomm_forcast_agent(request: Request):
         return {"status": "ERROR", "message": "Missing 'report' in request body."}
 
     result = await profit_recomm_forcast_agent_run(analysis_report)
+
+    result_json = jsonable_encoder(result)
     
-    return {"status": "OK", "data": result}
+    return {"status": "OK", "data": result_json}
 
 
 @router.post("/agents/profit-margin-analysis")
