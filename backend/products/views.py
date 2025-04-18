@@ -201,9 +201,11 @@ class ProductViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 
     @extend_schema(
         summary="Get product details",
-        description="Get detailed information about a specific product, including product costs if available.",
+        description="Get detailed information about a specific product, including product costs if available, and reports from external agent services.",
         responses={
-            200: OpenApiResponse(response=ProductDetailSerializer, description="Detailed product information"),
+            200: OpenApiResponse(
+                response=ProductDetailSerializer, description="Detailed product information with agent reports"
+            ),
             404: OpenApiResponse(description="Product not found"),
         },
     )
@@ -211,8 +213,30 @@ class ProductViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
         """
         Get detailed information about a specific product.
 
+        This method retrieves a product by ID and enhances the response with:
+        1. Report from Agent 1 service (report_1)
+        2. Report from Agent 2 service (report_2) which receives the product data and Agent 1's report
+
         Returns:
-            200 OK: Detailed product information including product costs if available
+            200 OK: Detailed product information including product costs and agent reports
             404 Not Found: If product not found
         """
-        return super().retrieve(request, *args, **kwargs)
+        # First get the product using the standard retrieve logic
+        response = super().retrieve(request, *args, **kwargs)
+
+        # Get product data from the response
+        product_data = response.data
+
+        # Only proceed with API calls if we have product data
+        if product_data:
+            from .utils import get_agent1_report, get_agent2_report
+
+            # Call Agent 1 service and add results to the response
+            agent1_result = get_agent1_report(product_data)
+            response.data["report_1"] = agent1_result
+
+            # Call Agent 2 service with Agent 1's result and add to the response
+            agent2_result = get_agent2_report(agent1_result, product_data)
+            response.data["report_2"] = agent2_result
+
+        return response

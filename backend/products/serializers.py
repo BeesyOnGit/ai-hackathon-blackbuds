@@ -84,9 +84,15 @@ class ProductDetailSerializer(ProductSerializer):
 
     The product_cost field provides a nested representation of the
     associated ProductCost object, if one exists.
+
+    The report_1 field contains analysis from the first external agent service.
+    The report_2 field contains analysis from the second external agent service,
+    which is based on both the product data and the first agent's report.
     """
 
     product_cost = ProductCostSerializer(read_only=True)
+    report_1 = serializers.JSONField(read_only=True, required=False)
+    report_2 = serializers.JSONField(read_only=True, required=False)
 
     class Meta(ProductSerializer.Meta):
-        fields = ProductSerializer.Meta.fields + ["product_cost"]
+        fields = ProductSerializer.Meta.fields + ["product_cost", "report_1", "report_2"]

@@ -1,0 +1,566 @@
+{
+    "info": {
+        "_postman_id": "5c8f7e0d-f6d5-4e3a-b3e0-b7c8e6b2b1d2",
+        "name": "Blackbuds API",
+        "description": "API collection for the Blackbuds project",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Register",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"username\": \"testuser\",\n  \"email\": \"testuser@example.com\",\n  \"password\": \"securepassword123\",\n  \"password2\": \"securepassword123\",\n  \"first_name\": \"Test\",\n  \"last_name\": \"User\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/auth/register/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "auth",
+                                "register",
+                                ""
+                            ]
+                        },
+                        "description": "Register a new user"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Login",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"securepassword123\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/auth/login/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "auth",
+                                "login",
+                                ""
+                            ]
+                        },
+                        "description": "Login and get access and refresh tokens"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Refresh Token",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"refresh\": \"{{refresh_token}}\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/auth/token/refresh/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "auth",
+                                "token",
+                                "refresh",
+                                ""
+                            ]
+                        },
+                        "description": "Refresh the access token using a valid refresh token"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Logout",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{access_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"refresh\": \"{{refresh_token}}\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/auth/logout/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "auth",
+                                "logout",
+                                ""
+                            ]
+                        },
+                        "description": "Logout and blacklist the refresh token"
+                    },
+                    "response": []
+                }
+            ],
+            "description": "Authentication related endpoints"
+        },
+        {
+            "name": "Users",
+            "item": [
+                {
+                    "name": "Get User Profile",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{access_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/users/me/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users",
+                                "me",
+                                ""
+                            ]
+                        },
+                        "description": "Retrieve the authenticated user's profile"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update User Profile",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{access_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"first_name\": \"Updated\",\n  \"last_name\": \"Name\",\n  \"bio\": \"This is my updated bio\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/users/me/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users",
+                                "me",
+                                ""
+                            ]
+                        },
+                        "description": "Update the authenticated user's profile"
+                    },
+                    "response": []
+                }
+            ],
+            "description": "User related endpoints"
+        },
+        {
+            "name": "Fixed Costs",
+            "item": [
+                {
+                    "name": "Create Fixed Costs",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{access_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"rental\": 20000,\n  \"employees\": 40000,\n  \"communication\": 6000,\n  \"dev\": 5000,\n  \"transportation\": 30000,\n  \"other\": 5000\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/fixed-costs/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "fixed-costs",
+                                ""
+                            ]
+                        },
+                        "description": "Create fixed costs for the current user. This will only work if the user doesn't already have a fixed costs record."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Fixed Costs",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{access_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/fixed-costs/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "fixed-costs",
+                                ""
+                            ]
+                        },
+                        "description": "Retrieve the fixed costs for the current authenticated user."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Fixed Costs",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{access_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"rental\": 25000,\n  \"transportation\": 35000\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/fixed-costs/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "fixed-costs",
+                                ""
+                            ]
+                        },
+                        "description": "Update specific fields in the fixed costs for the current authenticated user."
+                    },
+                    "response": []
+                }
+            ],
+            "description": "Endpoints for managing user fixed costs. Each user can have only one fixed costs object."
+        },
+        {
+            "name": "Products",
+            "item": [
+                {
+                    "name": "Get Products With Costs",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{access_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/products/with-costs/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "products",
+                                "with-costs",
+                                ""
+                            ]
+                        },
+                        "description": "Get all products that have associated product costs."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Products Without Costs",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{access_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/products/without-costs/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "products",
+                                "without-costs",
+                                ""
+                            ]
+                        },
+                        "description": "Get all products that do not have associated product costs."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Product Details",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{access_token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/products/1/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "products",
+                                "1",
+                                ""
+                            ]
+                        },
+                        "description": "Get detailed information for a specific product by ID, including product costs if available."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Add Product Costs",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{access_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"product_cost\": 900,\n  \"confirmation_fees\": 100,\n  \"packaging_fees\": 100,\n  \"return_cost\": 290,\n  \"ads_cost\": 2000\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/products/1/add-costs/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "products",
+                                "1",
+                                "add-costs",
+                                ""
+                            ]
+                        },
+                        "description": "Add product costs to a product. This will only work if the product doesn't already have associated costs."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Update Product Costs",
+                    "request": {
+                        "method": "PATCH",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{access_token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"product_cost\": 950,\n  \"confirmation_fees\": 120,\n  \"ads_cost\": 2200\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/products/1/update-costs/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "products",
+                                "1",
+                                "update-costs",
+                                ""
+                            ]
+                        },
+                        "description": "Update costs for a specific product. This will only work for products that already have associated costs."
+                    },
+                    "response": []
+                }
+            ],
+            "description": "Endpoints for managing products and their associated costs."
+        },
+        {
+            "name": "Documentation",
+            "item": [
+                {
+                    "name": "Schema",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/schema/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "schema",
+                                ""
+                            ]
+                        },
+                        "description": "Get API schema in OpenAPI format"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Swagger UI",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/docs/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "docs",
+                                ""
+                            ]
+                        },
+                        "description": "API documentation with Swagger UI"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "ReDoc",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/redoc/",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "redoc",
+                                ""
+                            ]
+                        },
+                        "description": "API documentation with ReDoc"
+                    },
+                    "response": []
+                }
+            ],
+            "description": "API documentation endpoints"
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    "// Save tokens from login response",
+                    "if (pm.request.url.toString().includes(\"/api/auth/login/\") && pm.response.code === 200) {",
+                    "    var responseJson = pm.response.json();",
+                    "    pm.environment.set(\"access_token\", responseJson.access);",
+                    "    pm.environment.set(\"refresh_token\", responseJson.refresh);",
+                    "}"
+                ]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:8000",
+            "type": "string"
+        },
+        {
+            "key": "access_token",
+            "value": "",
+            "type": "string"
+        },
+        {
+            "key": "refresh_token",
+            "value": "",
+            "type": "string"
+        }
+    ]
+}
