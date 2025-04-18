@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Request
 from ai_agent.runners.agents_runners import profit_recomm_forcast_agent_run
+import json
 
 router = APIRouter()
 
@@ -14,4 +15,5 @@ async def profit_margin_recomm_forcast_agent(request: Request):
         return {"status": "ERROR", "message": "Missing 'report' in request body."}
 
     result = await profit_recomm_forcast_agent_run(analysis_report)
+    
     return {"status": "OK", "data": result}

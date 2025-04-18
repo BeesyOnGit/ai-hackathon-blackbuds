@@ -1,4 +1,5 @@
 from agents import Agent
+from ai_agent.models.agent_models import RecommendationOutput
 
 
 profit_margin_recommendation_forcast_agent = Agent(
@@ -12,13 +13,13 @@ Your input will include:
 - Margin and cost insights (e.g., margin below industry standard, key cost drivers)
 - Recommendations for cost reduction or optimization
 
-Your output must follow this exact structure using json formatting:
+
 
 ---
 
-Your output must be a JSON string with this structure:
+Your output must be a Python Disctionary with this structure:
 {
-  "key_findings": [{"description": "string"}, ...],
+"key_findings": [{"description": "string"}, ...],
   "actionable_recommendations": [
     {
       "id": int,
@@ -52,5 +53,5 @@ Be concise, tactical, and include numbers to demonstrate calculated decision-mak
 
 Be concise, tactical, and always include **numbers** in your response to demonstrate calculated decision-making. Avoid generic advice.
 """,
-output_type=str
+output_type=RecommendationOutput
 )
