@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -7,6 +7,11 @@ import { AreaChart, Area, BarChart, Bar, LineChart, Line, XAxis, YAxis, Cartesia
 import { ArrowUpRight, ArrowDownRight, TrendingUp, DollarSign, Clock, BarChart3, Tag, AlertTriangle, Lightbulb } from "lucide-react";
 import { Suggestion } from "@/data/sample-data";
 import { InsightCard } from "@/components/dashboard/InsightCard";
+import { getActiveResourcesInfo } from "process";
+import { getApi } from "@/Api";
+import { useParams } from "react-router-dom";
+import { getPriority } from "os";
+import { error } from "console";
 
 interface Product {
     id: number;
@@ -22,7 +27,17 @@ interface ProductDetailViewProps {
 }
 
 export function ProductDetailView() {
-    const product = { id: 1, name: "Wireless Earbuds", revenue: 15400, profit: 7200, margin: 46.8 };
+    const product = { id: 1, name: "Wireless Earbuds", revenue: 150400, profit: 70200, margin: 46.8 };
+    const [productDetail, setPRoduct] = useState<any>({});
+
+    const { id } = useParams();
+    useEffect(() => {
+        if (!id) {
+            return;
+        }
+        getDetails();
+    }, [id]);
+
     const suggestions: Suggestion[] = [
         {
             id: "1",
@@ -85,13 +100,27 @@ export function ProductDetailView() {
     const salesGrowth = ((lastMonth.sales - previousMonth.sales) / previousMonth.sales) * 100;
     const revenueGrowth = ((lastMonth.revenue - previousMonth.revenue) / previousMonth.revenue) * 100;
 
+    const getDetails = async () => {
+        try {
+            const res = await getApi({ endpoint: `/api/products/${id}` });
+            console.log("🚀 ~ file: ProductDetailView.tsx:95 ~ getDetails ~ res:", res);
+            const { error, data } = res;
+            if (error) {
+                alert(data);
+                return;
+            }
+            setPRoduct(data);
+        } catch (error) {
+            console.log("🚀 ~ file: ProductDetailView.tsx:93 ~ getDetails ~ error:", error);
+        }
+    };
     return (
         <div className="space-y-6">
             {/* Product Overview Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold">{product.name}</h1>
-                    <p className="text-muted-foreground">Product ID: {product.id}</p>
+                    <h1 className="text-3xl font-bold">{productDetail?.product_name}</h1>
+                    <p className="text-muted-foreground">Product ID: {productDetail?.id}</p>
                 </div>
                 <div className="flex gap-2">
                     <Button variant="outline">Edit Product</Button>
@@ -105,7 +134,7 @@ export function ProductDetailView() {
                     <CardHeader className="pb-2">
                         <CardDescription>Total Revenue</CardDescription>
                         <CardTitle className="text-2xl flex items-center justify-between">
-                            ${product.revenue.toLocaleString()}
+                            {product.revenue.toLocaleString()} DZD
                             <DollarSign className="h-5 w-5 text-muted-foreground" />
                         </CardTitle>
                     </CardHeader>
@@ -124,7 +153,7 @@ export function ProductDetailView() {
                     <CardHeader className="pb-2">
                         <CardDescription>Total Profit</CardDescription>
                         <CardTitle className="text-2xl flex items-center justify-between">
-                            ${product.profit.toLocaleString()}
+                            {product.profit.toLocaleString()} DZD
                             <TrendingUp className="h-5 w-5 text-muted-foreground" />
                         </CardTitle>
                     </CardHeader>
@@ -226,11 +255,11 @@ export function ProductDetailView() {
                                         </div>
                                         <div>
                                             <p className="text-sm font-medium text-muted-foreground mb-1">Unit Cost</p>
-                                            <p className="text-xl font-bold">${inventoryData.unitCost.toFixed(2)}</p>
+                                            <p className="text-xl font-bold">{inventoryData.unitCost.toFixed(2)} DZD</p>
                                         </div>
                                         <div>
                                             <p className="text-sm font-medium text-muted-foreground mb-1">Inventory Value</p>
-                                            <p className="text-xl font-bold">${inventoryData.totalInventoryValue.toLocaleString()}</p>
+                                            <p className="text-xl font-bold">{inventoryData.totalInventoryValue.toLocaleString()} DZD</p>
                                         </div>
                                     </div>
 
