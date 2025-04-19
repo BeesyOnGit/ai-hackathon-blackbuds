@@ -80,13 +80,13 @@ const Index = () => {
 
     return (
         <Tabs defaultValue="dashboard">
-            <TabsList className="mb-6">
+            {/* <TabsList className="mb-6">
                 <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
                 <TabsTrigger value="products">Products</TabsTrigger>
                 <TabsTrigger value="product-details">Product Details</TabsTrigger>
                 <TabsTrigger value="calculator">Profit Calculator</TabsTrigger>
                 <TabsTrigger value="forecast">Sales Forecast</TabsTrigger>
-            </TabsList>
+            </TabsList> */}
 
             <TabsContent value="dashboard" className="space-y-6">
                 <MerchantDashboard financialData={financialData} suggestions={financialSuggestions} />

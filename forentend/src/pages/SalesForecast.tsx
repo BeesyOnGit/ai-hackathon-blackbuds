@@ -82,6 +82,7 @@ export function SalesForecast() {
     };
 
     const combinedData = generateForecast();
+    console.log("🚀 ~ file: SalesForecast.tsx:85 ~ SalesForecast ~ combinedData:", combinedData);
 
     // Create separate datasets for historical and projected data
     const historicalData = combinedData.filter((d) => !d.isProjected);

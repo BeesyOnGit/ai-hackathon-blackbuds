@@ -70,11 +70,11 @@ export function DashboardLayout({ children }: StoreLayoutProps) {
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 overflow-auto">
+            <div className="flex-1">
                 <header className="bg-white border-b border-gray-200 px-6 py-4">
                     <div className="flex justify-between items-center">
                         <h1 className="text-2xl font-bold text-gray-800">Profit Pilot</h1>
-                        <div className="flex items-center gap-4">
+                        {/* <div className="flex items-center gap-4">
                             <div className="relative">
                                 <input
                                     type="text"
@@ -92,10 +92,10 @@ export function DashboardLayout({ children }: StoreLayoutProps) {
                                     3
                                 </span>
                             </button>
-                        </div>
+                        </div> */}
                     </div>
                 </header>
-                <main className="p-6">{children}</main>
+                <main className="p-6 overflow-y-scroll overflow-x-hidden h-[90vh]">{children}</main>
             </div>
         </div>
     );
