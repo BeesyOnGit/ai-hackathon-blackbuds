@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ShoppingBag, Search, Heart, ShoppingCart, User, ChartBarIcon, Package, Gift, Tags, DollarSignIcon } from "lucide-react";
+import { ShoppingBag, Search, Heart, ShoppingCart, User, ChartBarIcon, Package, Gift, Tags, DollarSignIcon, Power } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface StoreLayoutProps {
@@ -65,6 +65,16 @@ export function DashboardLayout({ children }: StoreLayoutProps) {
                     >
                         <User className="h-5 w-5" />
                         <span>Account</span>
+                    </div>
+                    <div
+                        onClick={() => {
+                            window.localStorage.removeItem("accessToken");
+                            location.reload();
+                        }}
+                        className={selectClassMap[`${route == "/account"}`]}
+                    >
+                        <Power className="h-5 w-5" />
+                        <span>Logout</span>
                     </div>
                 </nav>
             </div>
