@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import React, { useState } from "react";
 import { ChevronDownIcon } from "lucide-react";
 import { Steps } from "@/components/ui/Steps";
+import { postApi } from "@/Api";
 
 function NewUserConfig() {
     const [step, setStep] = useState<number>(1);
@@ -35,46 +36,48 @@ function NewUserConfig() {
         1: (
             <div className="space-y-2">
                 <Label htmlFor="description">Please insert Your Shop Name</Label>
-                <Input onChange={changeUser} name="storeName" placeholder="My Shop" />
+                <Input onChange={changeUser} value={userForm.storeName} name="storeName" placeholder="My Shop" />
             </div>
         ),
         2: (
             <div className="flex flex-col justify-center items-center">
-                <Label className="py-8 text-xl"> Please Insert your Running costs here !</Label>
+                <Label className="py-8 text-xl">
+                    {userForm.storeName ? `Hello ${userForm.storeName.toUpperCase()}` : null} Please Insert your Running costs here !
+                </Label>
                 <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                         <Label htmlFor="description">Rental</Label>
-                        <Input onChange={changeUser} name="rental" placeholder="20 000" />
+                        <Input onChange={changeUser} value={userForm.rental} name="rental" placeholder="20 000" />
                     </div>
                     <div className="space-y-2">
                         <Label className="capitalize" htmlFor="Employes">
                             Employes
                         </Label>
-                        <Input onChange={changeUser} name="employes" placeholder="40 000" />
+                        <Input onChange={changeUser} value={userForm.employes} name="employes" placeholder="40 000" />
                     </div>
                     <div className="space-y-2">
                         <Label className="capitalize" htmlFor="communication">
                             communication
                         </Label>
-                        <Input onChange={changeUser} name="communication" placeholder="8 000" />
+                        <Input onChange={changeUser} value={userForm.communication} name="communication" placeholder="8 000" />
                     </div>
                     <div className="space-y-2">
                         <Label className="capitalize" htmlFor="developement">
                             developement
                         </Label>
-                        <Input onChange={changeUser} name="developement" placeholder="100 000" />
+                        <Input onChange={changeUser} value={userForm.dev} name="dev" placeholder="100 000" />
                     </div>
                     <div className="space-y-2">
                         <Label className="capitalize" htmlFor="transportation">
                             transportation
                         </Label>
-                        <Input onChange={changeUser} name="transportation" placeholder="6 000" />
+                        <Input onChange={changeUser} value={userForm.transportation} name="transportation" placeholder="6 000" />
                     </div>
                     <div className="space-y-2">
                         <Label className="capitalize" htmlFor="other">
                             other
                         </Label>
-                        <Input onChange={changeUser} name="other" placeholder="6 580" />
+                        <Input onChange={changeUser} value={userForm.other} name="other" placeholder="6 580" />
                     </div>
                 </div>
             </div>
@@ -113,6 +116,26 @@ function NewUserConfig() {
             .toString();
     }
 
+    const submitUser = async () => {
+        try {
+            const { communication, rental, employes, other, dev, transportation } = userForm;
+            if (!communication || !rental || !employes || !other || !dev || !transportation) {
+                alert("all the previous fields are mendatory");
+                return;
+            }
+            const user = await postApi({ endpoint: "/api/fixed-costs", payload: userForm });
+            const { error, data } = user;
+            if (error) {
+                alert(data);
+                return;
+            }
+            alert("cost configured successfully");
+            window.localStorage.setItem("newUser", "false");
+        } catch (error) {
+            console.log("🚀 ~ file: NewUserConfig.tsx:120 ~ submitUser ~ error:", error);
+        }
+    };
+
     return (
         <div className="w-100% h-[100vh] bg-gray-100 flex flex-col gap-4 items-center pt-24">
             <Steps currentStep={step} steps={steps} />
@@ -135,7 +158,7 @@ function NewUserConfig() {
                         variant="outline"
                         className="capitalize flex justify-center items-center"
                         onClick={() => {
-                            setStep((stp) => (stp += 1));
+                            step == 3 ? submitUser() : setStep((stp) => (stp += 1));
                         }}
                     >
                         {step < 3 && <ChevronDownIcon style={{ transform: "rotate(-90deg)" }} />}

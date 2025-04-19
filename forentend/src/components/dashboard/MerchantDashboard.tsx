@@ -38,7 +38,7 @@ export function MerchantDashboard({ financialData, suggestions }: MerchantDashbo
                     <CardHeader className="pb-2">
                         <CardDescription>Total Revenue</CardDescription>
                         <CardTitle className="text-2xl flex items-center justify-between">
-                            ${financialData.totalRevenue.toLocaleString()}
+                            {financialData.totalRevenue.toLocaleString()} DZD
                             <DollarSign className="h-5 w-5 text-muted-foreground" />
                         </CardTitle>
                     </CardHeader>
@@ -57,7 +57,7 @@ export function MerchantDashboard({ financialData, suggestions }: MerchantDashbo
                     <CardHeader className="pb-2">
                         <CardDescription>Net Profit</CardDescription>
                         <CardTitle className="text-2xl flex items-center justify-between">
-                            ${financialData.netProfit.toLocaleString()}
+                            {financialData.netProfit.toLocaleString()} DZD
                             <TrendingUp className="h-5 w-5 text-muted-foreground" />
                         </CardTitle>
                     </CardHeader>
