@@ -35,11 +35,11 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
+ALLOWED_HOSTS = ["*"]
 
 # External Service URLs
 AGENT1_SERVICE_URL = os.getenv("AGENT1_SERVICE_URL", "https://api.agent1.example.com/analyze")
 AGENT2_SERVICE_URL = os.getenv("AGENT2_SERVICE_URL", "https://api.agent2.example.com/report")
-
 
 
 # Application definition

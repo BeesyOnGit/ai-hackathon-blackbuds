@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import get_object_or_404, render
 from drf_spectacular.utils import OpenApiExample, OpenApiParameter, OpenApiResponse, extend_schema
 from rest_framework import mixins, permissions, status, viewsets
@@ -231,12 +233,17 @@ class ProductViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
         if product_data:
             from .utils import get_agent1_report, get_agent2_report
 
+            # get the current user fixed costs
+            user_fixed_costs = request.user.fixed_costs.all()
+
             # Call Agent 1 service and add results to the response
-            agent1_result = get_agent1_report(product_data)
+            agent1_result = get_agent1_report(
+                {"financial_data": {"user": user_fixed_costs, "product_details": product_data}}
+            )
             response.data["report_1"] = agent1_result
 
             # Call Agent 2 service with Agent 1's result and add to the response
-            agent2_result = get_agent2_report(agent1_result, product_data)
+            agent2_result = get_agent2_report({"report": json.dumps(agent1_result)})
             response.data["report_2"] = agent2_result
 
         return response
