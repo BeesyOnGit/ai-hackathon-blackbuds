@@ -135,7 +135,7 @@ export function ProductList() {
     };
     const postNewCost = async () => {
         try {
-            const res = await postApi({ endpoint: `/api/products/${costs.id}/add-cost`, payload: costs });
+            const res = await postApi({ endpoint: `/api/products/${costs.id}/add-costs`, payload: costs });
             const { error, data } = res;
             if (error) {
                 alert(data);
@@ -214,11 +214,11 @@ export function ProductList() {
                         <Button
                             variant="outline"
                             onClick={() => {
-                                setMonitor(!monitorMode);
+                                postNewCost();
                             }}
                         >
                             <PlusIcon className="h-4 w-4 mr-2" />
-                            Add product
+                            Monitor Product
                         </Button>
                     </div>
                 </Card>
@@ -247,7 +247,7 @@ export function ProductList() {
                             />
                         </div>
                         <div className="flex gap-2">
-                            <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                            {/* <Select value={categoryFilter} onValueChange={setCategoryFilter}>
                                 <SelectTrigger className="w-[180px]">
                                     <Filter className="h-4 w-4 mr-2" />
                                     <SelectValue placeholder="All Categories" />
@@ -260,7 +260,7 @@ export function ProductList() {
                                         </SelectItem>
                                     ))}
                                 </SelectContent>
-                            </Select>
+                            </Select> */}
                             <Button variant="outline" onClick={toggleSortOrder}>
                                 <ArrowUpDown className="h-4 w-4 mr-2" />
                                 {sortOrder === "asc" ? "Ascending" : "Descending"}
